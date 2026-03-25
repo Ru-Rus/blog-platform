@@ -33,7 +33,9 @@ async function archivePost(id) {
   return await supabaseClient.from('posts').update({ is_archived: true }).eq('id', id);
 }
 
-async function unarchivePost(id) {
+
+// Rename DB function to avoid recursion
+async function unarchivePostDb(id) {
   return await supabaseClient.from('posts').update({ is_archived: false }).eq('id', id);
 }
 
@@ -100,9 +102,9 @@ window.deletePost = async function deletePost(id) {
   }
 }
 
-window.unarchivePost = async function unarchivePost(id) {
+window.unarchivePost = async function(id) {
   if (confirm('Unarchive this post?')) {
-    await unarchivePost(id);
+    await unarchivePostDb(id);
     showPosts();
   }
 }
@@ -128,7 +130,7 @@ window.showPosts = async function showPosts() {
   }
   let html = '';
   if (!data || data.length === 0) {
-    html = '<em>No posts found.</em>';
+    html = '<br><em>No posts found.</em>';
   } else {
     const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     html = data.map(post => {

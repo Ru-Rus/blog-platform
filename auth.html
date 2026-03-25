@@ -6,12 +6,98 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="config.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; background: #f7f7f7; }
-    .auth-container { max-width: 350px; margin: 60px auto; background: #fff; padding: 32px 24px; border-radius: 8px; box-shadow: 0 2px 12px #eee; }
-    h2 { text-align: center; }
-    input, button { width: 100%; margin-bottom: 12px; padding: 10px; font-size: 1em; }
-    .switch-link { color: #0074d9; cursor: pointer; text-align: center; display: block; margin-top: 8px; }
-    .error { color: #b00; text-align: center; margin-bottom: 8px; }
+    @media (max-width: 500px) {
+      .auth-container {
+        max-width: 98vw;
+        padding: 8vw 2vw 6vw 2vw;
+      }
+      input, button {
+        font-size: 1em;
+        padding: 10px 8px;
+      }
+      h2 {
+        font-size: 1.2em;
+      }
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f7f7f7 0%, #e3e9f7 100%);
+      min-height: 100vh;
+      margin: 0;
+    }
+    .auth-container {
+      max-width: 370px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 36px 28px 28px 28px;
+      border-radius: 14px;
+      box-shadow: 0 4px 32px 0 #b3b3b3a0;
+      animation: fadeIn 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #2d3a4a;
+      letter-spacing: 1px;
+    }
+    input {
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 12px 10px;
+      font-size: 1em;
+      border: 1px solid #d0d6e0;
+      border-radius: 6px;
+      transition: border 0.2s;
+      background: #f8fafc;
+    }
+    input:focus {
+      border: 1.5px solid #4f8cff;
+      outline: none;
+      background: #fff;
+    }
+    button {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 12px 0;
+      font-size: 1em;
+      border: none;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #4f8cff 0%, #6a82fb 100%);
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px #e3e9f7a0;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #3a6fd8 0%, #4f8cff 100%);
+      transform: translateY(-2px) scale(1.03);
+    }
+    .switch-link {
+      color: #4f8cff;
+      cursor: pointer;
+      text-align: center;
+      display: block;
+      margin-top: 8px;
+      font-size: 0.98em;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    .switch-link:hover {
+      color: #2d3a4a;
+    }
+    .error {
+      color: #b00;
+      text-align: center;
+      margin-bottom: 8px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
   </style>
 </head>
 <body>

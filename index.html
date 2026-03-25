@@ -1,0 +1,32 @@
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="config.js"></script>
+
+<div style="max-width:600px;margin:40px auto;padding:20px;border:1px solid #eee;border-radius:8px;box-shadow:0 2px 8px #eee;">
+	<h2>Blog Platform</h2>
+	<form id="postForm" onsubmit="return false;">
+		<input id="title" placeholder="Title" style="width:100%;margin-bottom:8px;padding:8px;font-size:1em;" />
+		<textarea id="content" placeholder="Content" style="width:100%;height:80px;margin-bottom:8px;padding:8px;font-size:1em;"></textarea>
+		<button id="submitBtn" onclick="addPost()" style="padding:8px 16px;">Add Post</button>
+		<button id="logoutBtn" type="button" onclick="logout()" style="float:right;">Logout</button>
+		<button id="cancelEditBtn" onclick="cancelEdit()" style="padding:8px 16px;display:none;">Cancel Edit</button>
+	</form>
+	<hr style="margin:24px 0;" />
+	<div id="posts"></div>
+</div>
+
+<script>
+	// Redirect to login if not authenticated, and only load posts after session is set
+	const supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+	supabaseClient.auth.getSession().then(({ data: { session } }) => {
+		if (!session) {
+			window.location = 'auth.html';
+		} else {
+			window.currentUser = session.user;
+			// Only load app.js after session is set
+			const script = document.createElement('script');
+			script.src = 'app.js';
+			document.body.appendChild(script);
+		}
+	});
+</script>

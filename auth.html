@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login / Register</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="config.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; }
+    .auth-container { max-width: 350px; margin: 60px auto; background: #fff; padding: 32px 24px; border-radius: 8px; box-shadow: 0 2px 12px #eee; }
+    h2 { text-align: center; }
+    input, button { width: 100%; margin-bottom: 12px; padding: 10px; font-size: 1em; }
+    .switch-link { color: #0074d9; cursor: pointer; text-align: center; display: block; margin-top: 8px; }
+    .error { color: #b00; text-align: center; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <h2 id="formTitle">Login</h2>
+    <div id="error" class="error"></div>
+    <input id="email" type="email" placeholder="Email" autocomplete="username" />
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password" />
+    <button id="loginBtn" onclick="login()">Login</button>
+    <button id="registerBtn" onclick="register()" style="display:none;">Register</button>
+    <span class="switch-link" id="switchToRegister" onclick="switchToRegister()">Don't have an account? Register</span>
+    <span class="switch-link" id="switchToLogin" onclick="switchToLogin()" style="display:none;">Already have an account? Login</span>
+  </div>
+  <script src="auth.js"></script>
+</body>
+</html>

@@ -1,173 +1,200 @@
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script src="config.js"></script>
 
-
 <style>
-	@media (max-width: 800px) {
-		.main-container {
-			max-width: 98vw;
-			padding: 12vw 2vw 6vw 2vw;
-		}
-		form#postForm {
-			flex-direction: column;
-			gap: 8px;
-		}
-		#title, #content {
-			width: 100%;
-			min-width: 0;
-		}
-		#logoutBtn, #submitBtn, #cancelEditBtn {
-			width: 100%;
-			margin: 0 0 8px 0;
-		}
-		hr {
-			margin: 18px 0 10px 0;
-		}
-		#posts > div {
-			font-size: 1em;
-			padding: 6vw 2vw;
-		}
-		h3 {
-			font-size: 1.1em;
-		}
-		.main-container {
-			padding: 4vw 2vw 4vw 2vw;
-		}
-	}
-	body {
-		font-family: 'Segoe UI', Arial, sans-serif;
-		background: linear-gradient(120deg, #f7f7f7 0%, #e3e9f7 100%);
-		min-height: 100vh;
-		margin: 0;
-	}
-	.main-container {
-		max-width: 700px;
-		margin: 48px auto 0 auto;
-		background: #fff;
-		padding: 36px 32px 32px 32px;
-		border-radius: 14px;
-		box-shadow: 0 4px 32px 0 #b3b3b3a0;
-		animation: fadeIn 0.7s cubic-bezier(.4,0,.2,1);
-	}
-	@keyframes fadeIn {
-		from { opacity: 0; transform: translateY(30px); }
-		to { opacity: 1; transform: translateY(0); }
-	}
-	h2 {
-		text-align: center;
-		margin-bottom: 24px;
-		color: #2d3a4a;
-		letter-spacing: 1px;
-	}
-	form#postForm {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 12px;
-		align-items: flex-end;
-		margin-bottom: 18px;
-	}
-	#title {
-		flex: 2 1 200px;
-		padding: 12px 10px;
-		font-size: 1em;
-		border: 1px solid #d0d6e0;
-		border-radius: 6px;
-		background: #f8fafc;
-		transition: border 0.2s;
-		margin-bottom: 0;
-	}
-	#title:focus, #content:focus {
-		border: 1.5px solid #4f8cff;
-		outline: none;
-		background: #fff;
-	}
-	#content {
-		flex: 3 1 300px;
-		padding: 12px 10px;
-		font-size: 1em;
-		border: 1px solid #d0d6e0;
-		border-radius: 6px;
-		background: #f8fafc;
-		min-height: 48px;
-		resize: vertical;
-		transition: border 0.2s;
-		margin-bottom: 0;
-	}
-	#submitBtn, #cancelEditBtn, #logoutBtn {
-		padding: 12px 18px;
-		font-size: 1em;
-		border: none;
-		border-radius: 6px;
-		background: linear-gradient(90deg, #4f8cff 0%, #6a82fb 100%);
-		color: #fff;
-		font-weight: 600;
-		letter-spacing: 0.5px;
-		box-shadow: 0 2px 8px #e3e9f7a0;
-		cursor: pointer;
-		transition: background 0.2s, transform 0.1s;
-		margin-bottom: 0;
-	}
-	#submitBtn:hover, #cancelEditBtn:hover, #logoutBtn:hover {
-		background: linear-gradient(90deg, #3a6fd8 0%, #4f8cff 100%);
-		transform: translateY(-2px) scale(1.03);
-	}
-	#cancelEditBtn {
-		background: #f5a623;
-		color: #fff;
-		margin-left: 8px;
-		margin-right: 8px;
-		box-shadow: 0 2px 8px #f5a62333;
-		transition: background 0.2s, transform 0.1s;
-	}
-	#cancelEditBtn:hover {
-		background: #e08e00;
-	}
-	#logoutBtn {
-		background: #e74c3c;
-		color: #fff;
-		margin-left: auto;
-		box-shadow: 0 2px 8px #e74c3c33;
-		transition: background 0.2s, transform 0.1s;
-	}
-	#logoutBtn:hover {
-		background: #c0392b;
-	}
-	hr {
-		margin: 28px 0 18px 0;
-		border: none;
-		border-top: 1.5px solid #e3e9f7;
-	}
-	#posts {
-		margin-top: 0;
-	}
+  @media (max-width: 800px) {
+    .main-container {
+      max-width: 98vw;
+      padding: 12vw 2vw 6vw 2vw;
+    }
+    form#postForm {
+      flex-direction: column;
+      gap: 8px;
+    }
+    #title,
+    #content {
+      width: 100%;
+      min-width: 0;
+    }
+    #logoutBtn,
+    #submitBtn,
+    #cancelEditBtn {
+      width: 100%;
+      margin: 0 0 8px 0;
+    }
+    hr {
+      margin: 18px 0 10px 0;
+    }
+    #posts > div {
+      font-size: 1em;
+      padding: 6vw 2vw;
+    }
+    h3 {
+      font-size: 1.1em;
+    }
+    .main-container {
+      padding: 4vw 2vw 4vw 2vw;
+    }
+  }
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(120deg, #f7f7f7 0%, #e3e9f7 100%);
+    min-height: 100vh;
+    margin: 0;
+  }
+  .main-container {
+    max-width: 700px;
+    margin: 48px auto 0 auto;
+    background: #fff;
+    padding: 36px 32px 32px 32px;
+    border-radius: 14px;
+    box-shadow: 0 4px 32px 0 #b3b3b3a0;
+    animation: fadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #2d3a4a;
+    letter-spacing: 1px;
+  }
+  form#postForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-end;
+    margin-bottom: 18px;
+  }
+  #title {
+    flex: 2 1 200px;
+    padding: 12px 10px;
+    font-size: 1em;
+    border: 1px solid #d0d6e0;
+    border-radius: 6px;
+    background: #f8fafc;
+    transition: border 0.2s;
+    margin-bottom: 0;
+  }
+  #title:focus,
+  #content:focus {
+    border: 1.5px solid #4f8cff;
+    outline: none;
+    background: #fff;
+  }
+  #content {
+    flex: 3 1 300px;
+    padding: 12px 10px;
+    font-size: 1em;
+    border: 1px solid #d0d6e0;
+    border-radius: 6px;
+    background: #f8fafc;
+    min-height: 48px;
+    resize: vertical;
+    transition: border 0.2s;
+    margin-bottom: 0;
+  }
+  #submitBtn,
+  #cancelEditBtn,
+  #logoutBtn {
+    padding: 12px 18px;
+    font-size: 1em;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #4f8cff 0%, #6a82fb 100%);
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px #e3e9f7a0;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      transform 0.1s;
+    margin-bottom: 0;
+  }
+  #submitBtn:hover,
+  #cancelEditBtn:hover,
+  #logoutBtn:hover {
+    background: linear-gradient(90deg, #3a6fd8 0%, #4f8cff 100%);
+    transform: translateY(-2px) scale(1.03);
+  }
+  #cancelEditBtn {
+    background: #f5a623;
+    color: #fff;
+    margin-left: 8px;
+    margin-right: 8px;
+    box-shadow: 0 2px 8px #f5a62333;
+    transition:
+      background 0.2s,
+      transform 0.1s;
+  }
+  #cancelEditBtn:hover {
+    background: #e08e00;
+  }
+  #logoutBtn {
+    background: #e74c3c;
+    color: #fff;
+    margin-left: auto;
+    box-shadow: 0 2px 8px #e74c3c33;
+    transition:
+      background 0.2s,
+      transform 0.1s;
+  }
+  #logoutBtn:hover {
+    background: #c0392b;
+  }
+  hr {
+    margin: 28px 0 18px 0;
+    border: none;
+    border-top: 1.5px solid #e3e9f7;
+  }
+  #posts {
+    margin-top: 0;
+  }
 </style>
 
 <div class="main-container">
-	<h2>Blog Platform</h2>
-	<form id="postForm" onsubmit="return false;">
-		<input id="title" placeholder="Title" />
-		<textarea id="content" placeholder="Content"></textarea>
-		<button id="submitBtn" onclick="addPost()">Add Post</button>
-		<button id="cancelEditBtn" onclick="cancelEdit()" style="display:none;">Cancel Edit</button>
-		<button id="logoutBtn" type="button" onclick="logout()">Logout</button>
-	</form>
-	<hr />
-	<div id="posts"></div>
+  <div style="display: flex; align-items: center; gap: 12px">
+    <h2>Blog Platform</h2>
+    <button id="logoutBtn" type="button" onclick="logout()">Logout</button>
+  </div>
+
+  <form id="postForm" onsubmit="return false;">
+    <input id="title" placeholder="Title" />
+    <textarea id="content" placeholder="Content"></textarea>
+  </form>
+  <button id="submitBtn" onclick="addPost()">Add Post</button>
+  <button id="cancelEditBtn" onclick="cancelEdit()" style="display: none">
+    Cancel Edit
+  </button>
+
+  <hr />
+  <div id="posts"></div>
 </div>
 
 <script>
-	// Redirect to login if not authenticated, and only load posts after session is set
-	const supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
-	supabaseClient.auth.getSession().then(({ data: { session } }) => {
-		if (!session) {
-			window.location = 'auth.html';
-		} else {
-			window.currentUser = session.user;
-			// Only load app.js after session is set
-			const script = document.createElement('script');
-			script.src = 'app.js';
-			document.body.appendChild(script);
-		}
-	});
+  // Redirect to login if not authenticated, and only load posts after session is set
+  const supabaseClient = window.supabase.createClient(
+    window.SUPABASE_URL,
+    window.SUPABASE_ANON_KEY,
+  );
+  supabaseClient.auth.getSession().then(({ data: { session } }) => {
+    if (!session) {
+      window.location = "auth.html";
+    } else {
+      window.currentUser = session.user;
+      // Only load app.js after session is set
+      const script = document.createElement("script");
+      script.src = "app.js";
+      document.body.appendChild(script);
+    }
+  });
 </script>

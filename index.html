@@ -183,8 +183,8 @@
 <script>
   // Redirect to login if not authenticated, and only load posts after session is set
   const supabaseClient = window.supabase.createClient(
-    window.SUPABASE_URL,
-    window.SUPABASE_ANON_KEY,
+    VITE_SUPABASE_URL,
+    VITE_SUPABASE_ANON_KEY,
   );
   supabaseClient.auth.getSession().then(({ data: { session } }) => {
     if (!session) {

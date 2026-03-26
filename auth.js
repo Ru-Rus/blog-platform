@@ -1,4 +1,4 @@
-const supabaseClient = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+const supabaseClient = supabase.createClient(VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY);
 
 function showError(msg) {
   document.getElementById('error').textContent = msg || '';
